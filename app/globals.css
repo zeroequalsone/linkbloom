@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
-@theme {
+@theme inline {
   --font-inter: var(--font-inter);
+
+  --color-cream-1: #fefae0;
+  --color-cream-2: #faedcd;
+  --color-cream-3: #d4a373;
+  --color-cream-4: #936639;
+  --color-cream-5: #7f4f24;
+  --color-cream-6: #582f0e;
 }
