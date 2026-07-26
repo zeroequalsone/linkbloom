@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Fraunces, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 const poppins = Poppins({
   variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
@@ -23,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="de"
-      className={`${poppins.className} ${poppins.variable} h-full antialiased`}
+      className={`${poppins.className} ${poppins.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-cream-1 text-cream-6">
         <Navbar />
