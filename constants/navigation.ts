@@ -1,7 +1,7 @@
 export const NAV_LINKS = [
   { name: "Features", href: "/features" },
   { name: "Templates", href: "/templates" },
-  { name: "Preise", href: "/preise" },
+  { name: "Preise", href: "/pricing" },
 ];
 
 export const FOOTER_LINKS = [
