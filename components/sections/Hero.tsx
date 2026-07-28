@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { LuArrowRight } from "react-icons/lu";
 
 export default function Hero() {
   return (
@@ -8,7 +8,7 @@ export default function Hero() {
           Ein Link. <br /> Und er{" "}
           <span className="text-mint-4 font-medium italic">blüht auf.</span>
         </h1>
-        <h2 className="text-cream-5 font-light text-lg mb-8 lg:max-w-lg max-w-xs text-center">
+        <h2 className="text-cream-5 font-light text-lg mb-8 lg:max-w-lg max-w-xs lg:text-start text-center">
           Portfolio, Shop, Playlist, Newsletter — alles, was zu dir gehört, auf
           einer ästhetischen kompakten Seite. Angelegt in ein paar Minuten, ganz
           ohne Code.
@@ -22,9 +22,9 @@ export default function Hero() {
             placeholder="deinname"
             className="border-2 border-none outline-mint-4 rounded-lg px-1 py-2 flex-1"
           />
-          <button className="hover:bg-mint-3 hover:cursor-pointer active:bg-mint-2 flex justify-center gap-2 bg-mint-4 text-white px-5.5 py-2 rounded-lg">
+          <button className="hover:bg-mint-3 cursor-pointer active:bg-mint-2 flex justify-center gap-2 bg-mint-4 text-white px-5.5 py-2 rounded-lg">
             <span>Bloom erstellen</span>
-            <ArrowRight />
+            <LuArrowRight size={24} />
           </button>
         </div>
         <p className="text-cream-4 text-sm">

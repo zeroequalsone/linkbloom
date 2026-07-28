@@ -1,10 +1,10 @@
 "use client";
 import { NAV_LINKS } from "@/constants/navigation";
 import Logo from "@/public/Logo.svg";
-import { MenuIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import Button from "../ui/Button";
+import { LuMenu, LuX } from "react-icons/lu";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
@@ -22,7 +22,7 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="hover:bg-cream-3/25 p-4 rounded-md text-lg"
+                  className="hover:bg-cream-3/25 p-4 rounded-md"
                 >
                   {link.name}
                 </Link>
@@ -34,10 +34,10 @@ export default function Navbar() {
             <Button variant={1} title="Registrieren" href="/register" />
           </div>
           <button
-            className="lg:hidden hover:cursor-pointer hover:bg-cream-3/25 p-4 rounded-md"
+            className="lg:hidden cursor-pointer hover:bg-cream-3/25 p-4 rounded-md"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
-            {mobileOpen ? <XIcon /> : <MenuIcon />}
+            {mobileOpen ? <LuX size={24} /> : <LuMenu size={24} />}
           </button>
         </div>
         {mobileOpen && (
@@ -47,7 +47,7 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="hover:bg-cream-3/25 p-4 rounded-md text-lg"
+                  className="hover:bg-cream-3/25 p-4 rounded-md"
                 >
                   {link.name}
                 </Link>
