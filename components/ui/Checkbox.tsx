@@ -4,12 +4,14 @@ type CheckboxProps = {
   children: ReactNode;
   checked?: boolean;
   onChange?: ChangeEventHandler;
+  required?: boolean;
 };
 
 export default function Checkbox({
   children,
   checked,
   onChange,
+  required,
 }: CheckboxProps) {
   return (
     <label className="flex gap-2 text-sm my-6">
@@ -18,6 +20,7 @@ export default function Checkbox({
         type="checkbox"
         checked={checked}
         onChange={onChange}
+        required={required}
       />
       <span>{children}</span>
     </label>

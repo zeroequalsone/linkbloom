@@ -1,10 +1,33 @@
+"use client";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import Divider from "../ui/Divider";
 import Checkbox from "../ui/Checkbox";
 import Input from "../ui/Input";
+import { FormEvent, useState } from "react";
+import { signIn } from "@/lib/auth/auth-actions";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorStatus, setErrorStatus] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setErrorStatus("");
+
+    const error = await signIn(email, password);
+
+    if (error) {
+      setErrorStatus("E-Mail oder Passwort ist falsch.");
+      return;
+    }
+
+    router.push("/dashboard");
+  };
+
   return (
     <div className="grid lg:grid-cols-2 lg:gap-48 gap-8 lg:max-w-7xl lg:mx-auto">
       <div className="flex flex-col gap-6 p-8">
@@ -18,43 +41,58 @@ export default function LoginForm() {
         </h2>
 
         <div className="flex flex-col gap-6">
-          <form className="text-cream-5">
+          <form onSubmit={handleSubmit} className="text-cream-5">
             {/* Email */}
             <Input
               label="E-Mail"
+              // type="email"
               type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="du@beispiel.de"
-              autoFocus={true}
+              autoFocus
+              required
             />
 
             {/* Passwort */}
-            <Input label="Passwort" type="password" placeholder="••••••••" />
+            <Input
+              label="Passwort"
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+
+            {errorStatus && (
+              <p className="text-red-500 text-sm">{errorStatus}</p>
+            )}
 
             <div className="flex items-center justify-between">
               {/* Zustimmen */}
               <Checkbox>Angemeldet bleiben</Checkbox>
-              <Link
-                className="text-mint-4 font-medium text-sm"
-                href={"/forgot-password"}
-              >
+              <Link className="text-mint-4 font-medium text-sm" href={""}>
                 Passwort vergessen?
               </Link>
             </div>
 
             {/* Einloggen */}
-            <button className="hover:bg-mint-3 active:bg-mint-2 flex justify-center gap-2 bg-mint-4 text-white px-5.5 py-2 rounded-lg w-full cursor-pointer">
+            <button
+              type="submit"
+              className="hover:bg-mint-3 active:bg-mint-2 flex justify-center gap-2 bg-mint-4 text-white px-5.5 py-2 rounded-lg w-full cursor-pointer"
+            >
               Einloggen
             </button>
           </form>
 
           {/* Divider */}
-          <Divider text="oder" />
+          {/* <Divider text="oder" /> */}
 
           {/* Google */}
-          <button className="hover:bg-cream-3 hover:border-transparent active:bg-cream-3/50 flex items-center justify-center gap-2 border-2 border-cream-3 px-5.5 py-1.5 rounded-lg w-full cursor-pointer">
+          {/* <button className="hover:bg-cream-3 hover:border-transparent active:bg-cream-3/50 flex items-center justify-center gap-2 border-2 border-cream-3 px-5.5 py-1.5 rounded-lg w-full cursor-pointer">
             <FcGoogle size={24} />
             <span>Mit Google fortfahren</span>
-          </button>
+          </button> */}
 
           <p className="font-light text-center">
             Schon ein Konto?{" "}
