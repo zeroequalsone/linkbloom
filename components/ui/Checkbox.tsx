@@ -3,7 +3,7 @@ import { ChangeEventHandler, ReactNode } from "react";
 type CheckboxProps = {
   children: ReactNode;
   checked?: boolean;
-  onChange?: ChangeEventHandler;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   required?: boolean;
 };
 

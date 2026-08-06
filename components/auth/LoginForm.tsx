@@ -45,8 +45,8 @@ export default function LoginForm() {
             {/* Email */}
             <Input
               label="E-Mail"
-              // type="email"
-              type="text"
+              type="email"
+              // type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="du@beispiel.de"

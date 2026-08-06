@@ -4,7 +4,7 @@ type InputProps = {
   label: string;
   type: string;
   value?: string;
-  onChange?: ChangeEventHandler;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   placeholder: string;
   isSuccess?: boolean;
   success?: string;
