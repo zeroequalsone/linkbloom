@@ -1,10 +1,35 @@
+"use client";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import Divider from "../ui/Divider";
 import Checkbox from "../ui/Checkbox";
 import Input from "../ui/Input";
+import { FormEvent, useState } from "react";
+import { signUp } from "@/lib/auth/auth-actions";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
+  const [displayName, setDisplayName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorStatus, setErrorStatus] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setErrorStatus("");
+
+    const error = await signUp(email, password, displayName, username);
+
+    if (error) {
+      setErrorStatus("E-Mail bereits vergeben.");
+      return;
+    }
+
+    router.push("/dashboard");
+  };
+
   return (
     <div className="grid lg:grid-cols-2 lg:gap-48 gap-8 lg:max-w-7xl lg:mx-auto">
       <div className="flex flex-col gap-6 p-8">
@@ -19,42 +44,64 @@ export default function RegisterForm() {
         </h2>
 
         <div className="flex flex-col gap-6">
-          <form className="text-cream-5">
+          <form onSubmit={handleSubmit} className="text-cream-5">
             {/* Name */}
             <Input
               label="Name"
               type="text"
+              value={displayName}
+              onChange={(e) =>
+                setDisplayName(e.target.value.toLowerCase().trim())
+              }
               placeholder="Wie sollen wir dich nennen?"
-              success="Ein wunderschöner Name!"
-              autoFocus={true}
+              success="Ein wunderschöner Name."
+              autoFocus
+              required
+            />
+
+            <Input
+              label="Username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value.toLowerCase().trim())}
+              placeholder="Wie willst du genannt werden?"
+              success="Klasse, sehr einprägsam."
+              required
             />
 
             {/* Email */}
             <Input
               label="E-Mail"
-              type="text"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="du@beispiel.de"
               success="Deine Einladung wartet dort schon."
+              required
             />
 
             {/* Passwort */}
             <Input
               label="Passwort"
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Mindestens 8 Zeichen"
               success="Perfekt, das sieht sicher aus."
+              required
             />
 
             {/* Passwort wiederholen */}
-            <Input
+            {/* <Input
               label="Passwort wiederholen"
               type="password"
               placeholder="Passwort wiederholen"
               success="Doppelt geprüft, alles gut."
-            />
+              required
+            /> */}
 
             {/* Zustimmen */}
-            <Checkbox>
+            <Checkbox required>
               Ich stimme der{" "}
               <Link className="font-bold" href={"/datenschutz"}>
                 Datenschutzerklärung
@@ -67,19 +114,24 @@ export default function RegisterForm() {
             </Checkbox>
 
             {/* Registrieren */}
-            <button className="hover:bg-mint-3 active:bg-mint-2 flex justify-center gap-2 bg-mint-4 text-white px-5.5 py-2 rounded-lg w-full cursor-pointer">
+            <button
+              type="submit"
+              className="hover:bg-mint-3 active:bg-mint-2 flex justify-center gap-2 bg-mint-4 text-white px-5.5 py-2 rounded-lg w-full cursor-pointer"
+            >
               Kostenlos registrieren
             </button>
           </form>
 
+          {errorStatus && <p className="text-red-500 text-sm">{errorStatus}</p>}
+
           {/* Divider */}
-          <Divider text="oder" />
+          {/* <Divider text="oder" /> */}
 
           {/* Google */}
-          <button className="hover:bg-cream-3 hover:border-transparent active:bg-cream-3/50 flex items-center justify-center gap-2 border-2 border-cream-3 px-5.5 py-1.5 rounded-lg w-full cursor-pointer">
+          {/* <button className="hover:bg-cream-3 hover:border-transparent active:bg-cream-3/50 flex items-center justify-center gap-2 border-2 border-cream-3 px-5.5 py-1.5 rounded-lg w-full cursor-pointer">
             <FcGoogle size={24} />
             <span>Mit Google fortfahren</span>
-          </button>
+          </button> */}
 
           <p className="font-light text-center">
             Schon ein Konto?{" "}
@@ -97,7 +149,7 @@ export default function RegisterForm() {
             "Endlich eine Seite, die aussieht wie ich - nicht wie eine Vorlage."
           </p>
           <div>
-            <p className="text-sm font-semibold">Mira K.</p>
+            <p className="text-sm font-semibold">Anastasija K.</p>
             <p className="text-xs text-cream-4">Illustratorin</p>
           </div>
         </div>
