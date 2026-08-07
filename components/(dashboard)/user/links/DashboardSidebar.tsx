@@ -1,31 +1,36 @@
 import { getCurrentUser } from "@/lib/auth/auth-server";
+import Link from "next/link";
 import { GoGear } from "react-icons/go";
 import { LuChartNoAxesColumn, LuLink, LuPalette } from "react-icons/lu";
 
 const links = [
   {
     id: 1,
+    href: "/dashboard",
     title: "Links",
     icon: LuLink,
   },
   {
     id: 2,
+    href: "/dashboard/design",
     title: "Design",
     icon: LuPalette,
   },
   {
     id: 3,
+    href: "/dashboard/statistics",
     title: "Statistiken",
     icon: LuChartNoAxesColumn,
   },
   {
     id: 4,
+    href: "/dashboard/settings",
     title: "Einstellungen",
     icon: GoGear,
   },
 ];
 
-export default async function DashboardSidebar() {
+export default async function DashboardSidebar({ tab }: { tab: string }) {
   const { user } = await getCurrentUser();
   const username = user?.user_metadata.username;
   const displayName = user?.user_metadata.display_name;
@@ -39,13 +44,21 @@ export default async function DashboardSidebar() {
             const Icon = link.icon;
 
             return (
-              <button
+              <Link
                 key={link.title}
-                className="group hover:bg-cream-3/25 flex items-center gap-3 text-cream-5 font-medium text-sm p-3 rounded-xl cursor-pointer hover:text-cream-6"
+                href={link.href}
+                className={`hover:bg-cream-3/25 flex items-center gap-3 text-cream-5 font-medium text-sm p-3 rounded-xl cursor-pointer hover:text-cream-6 ${link.title === tab && "bg-cream-3/25"}`}
               >
-                <Icon size={16} />
-                <span>{link.title}</span>
-              </button>
+                <Icon
+                  size={16}
+                  className={link.title === tab ? "text-mint-4" : undefined}
+                />
+                <span
+                  className={link.title === tab ? "text-cream-6" : undefined}
+                >
+                  {link.title}
+                </span>
+              </Link>
             );
           })}
         </div>
