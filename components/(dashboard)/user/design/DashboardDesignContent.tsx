@@ -1,3 +1,4 @@
+import DashboardDesignButtonStyle from "./DashboardDesignButtonStyle";
 import DashboardDesignFont from "./DashboardDesignFont";
 import DashboardDesignHeader from "./DashboardDesignHeader";
 import DashboardDesignTheme from "./DashboardDesignTheme";
@@ -8,6 +9,7 @@ export default function DashboardDesignContent() {
       <DashboardDesignHeader />
       <DashboardDesignTheme />
       <DashboardDesignFont />
+      <DashboardDesignButtonStyle />
     </div>
   );
 }
