@@ -1,4 +1,5 @@
-import DashboardSidebar from "@/components/(dashboard)/user/links/DashboardSidebar";
+
+import DashboardSidebar from "@/components/(dashboard)/user/DashboardSidebar";
 import UserDashboard from "@/components/(dashboard)/user/links/UserDashboard";
 import DashboardSettingsContent from "@/components/(dashboard)/user/settings/DashboardSettingsContent";
 import { getCurrentUser } from "@/lib/auth/auth-server";
