@@ -2,6 +2,7 @@ import { getCurrentUser } from "@/lib/auth/auth-server";
 import Link from "next/link";
 import { GoGear } from "react-icons/go";
 import { LuChartNoAxesColumn, LuLink, LuPalette } from "react-icons/lu";
+import DashboardSidebarMobile from "./DashboardSidebarMobile";
 
 const links = [
   {
@@ -34,36 +35,38 @@ export default async function DashboardSidebar({ tab }: { tab: string }) {
   const { user } = await getCurrentUser();
   const username = user?.user_metadata.username;
   const displayName = user?.user_metadata.display_name;
+  const displayNameInitial = displayName.substring(0, 1);
 
   return (
-    <div className="flex w-90 flex-col justify-between bg-cream-2 p-8 border-r border-cream-3/25">
-      <div>
-        <p className="mb-8 text-lg font-medium">Dashboard</p>
-        <div className="flex flex-col gap-1">
-          {links.map((link) => {
-            const Icon = link.icon;
+    <>
+      {/* Desktop */}
+      <div className="hidden lg:flex w-90 flex-col justify-between bg-cream-2 p-8 border-r border-cream-3/25">
+        <div>
+          <p className="mb-8 text-lg font-medium">Dashboard</p>
+          <div className="flex flex-col gap-1">
+            {links.map((link) => {
+              const Icon = link.icon;
 
-            return (
-              <Link
-                key={link.title}
-                href={link.href}
-                className={`hover:bg-cream-3/25 flex items-center gap-3 text-cream-5 font-medium text-sm p-3 rounded-xl cursor-pointer hover:text-cream-6 ${link.title === tab && "bg-cream-3/25"}`}
-              >
-                <Icon
-                  size={16}
-                  className={link.title === tab ? "text-mint-4" : undefined}
-                />
-                <span
-                  className={link.title === tab ? "text-cream-6" : undefined}
+              return (
+                <Link
+                  key={link.title}
+                  href={link.href}
+                  className={`hover:bg-cream-3/25 flex items-center gap-3 text-cream-5 font-medium text-sm p-3 rounded-xl cursor-pointer hover:text-cream-6 ${link.title === tab && "bg-cream-3/25"}`}
                 >
-                  {link.title}
-                </span>
-              </Link>
-            );
-          })}
+                  <Icon
+                    size={16}
+                    className={link.title === tab ? "text-mint-4" : undefined}
+                  />
+                  <span
+                    className={link.title === tab ? "text-cream-6" : undefined}
+                  >
+                    {link.title}
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
         </div>
-      </div>
-      <div>
         <div className="flex items-center gap-3 text-cream-5 p-3 pt-6 border-t border-cream-3/25">
           {/* TODO: Profile Picture */}
           <div className="bg-cream-3 rounded-full">
@@ -77,6 +80,12 @@ export default async function DashboardSidebar({ tab }: { tab: string }) {
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Mobile */}
+      <DashboardSidebarMobile
+        tab={tab}
+        displayNameInitial={displayNameInitial}
+      />
+    </>
   );
 }

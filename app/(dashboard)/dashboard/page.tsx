@@ -1,5 +1,5 @@
+import DashboardSidebar from "@/components/(dashboard)/user/DashboardSidebar";
 import DashboardContent from "@/components/(dashboard)/user/links/DashboardContent";
-import DashboardSidebar from "@/components/(dashboard)/user/links/DashboardSidebar";
 import UserDashboard from "@/components/(dashboard)/user/links/UserDashboard";
 import { getCurrentUser } from "@/lib/auth/auth-server";
 import { redirect } from "next/navigation";
