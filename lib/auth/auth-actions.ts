@@ -6,7 +6,7 @@ export const signUp = async (
   displayName: string,
   username: string,
 ) => {
-  const { error } = await supabase.auth.signUp({
+  const { error, data } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -15,6 +15,14 @@ export const signUp = async (
         username,
       },
     },
+  });
+
+  await supabase.from("stats").insert({
+    user_id: data.user?.id,
+    views: 0,
+    views_7_days_ago: 0,
+    clicks: 0,
+    clicks_7_days_ago: 0,
   });
 
   if (error) return error;
