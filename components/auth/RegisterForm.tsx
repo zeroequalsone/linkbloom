@@ -1,4 +1,5 @@
 "use client";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import Divider from "../ui/Divider";
@@ -23,12 +24,16 @@ export default function RegisterForm() {
     const error = await signUp(email, password, displayName, username);
 
     if (error) {
-      setErrorStatus("E-Mail bereits vergeben.");
+      setErrorStatus(error);
       return;
     }
 
     router.push("/dashboard");
   };
+
+  const [passwordType, setPasswordType] = useState<"password" | "text">(
+    "password",
+  );
 
   return (
     <div className="grid lg:grid-cols-2 lg:gap-48 gap-8 lg:max-w-7xl lg:mx-auto">
@@ -47,58 +52,86 @@ export default function RegisterForm() {
           <form onSubmit={handleSubmit} className="text-cream-5">
             {/* Name */}
             <Input
+              id="display-name"
               label="Name"
               type="text"
               value={displayName}
-              onChange={(e) =>
-                setDisplayName(e.target.value.toLowerCase().trim())
-              }
+              onChange={(e) => setDisplayName(e.target.value)}
+              maxLength={40}
               placeholder="Wie sollen wir dich nennen?"
+              isSuccess={displayName.trim().length > 0}
               success="Ein wunderschöner Name."
               autoFocus
               required
             />
 
             <Input
+              id="username"
               label="Username"
               type="text"
               value={username}
-              onChange={(e) => setUsername(e.target.value.toLowerCase().trim())}
+              onChange={(e) =>
+                setUsername(
+                  e.target.value.toLowerCase().replace(/[^a-z0-9]/g, ""),
+                )
+              }
               placeholder="Wie willst du genannt werden?"
+              minLength={3}
+              maxLength={20}
+              pattern="^[a-z0-9]{3,20}$"
+              title="Der Username darf nur Kleinbuchstaben und Zahlen enthalten."
+              isSuccess={/^[a-z0-9]{3,20}$/.test(username)}
               success="Klasse, sehr einprägsam."
               required
             />
 
             {/* Email */}
             <Input
+              id="email"
               label="E-Mail"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="du@beispiel.de"
-              success="Deine Einladung wartet dort schon."
+              isSuccess={/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)}
+              success="Super, wir können dich erreichen."
               required
             />
 
             {/* Passwort */}
             <Input
+              id="password"
               label="Passwort"
-              type="password"
+              type={passwordType}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Mindestens 8 Zeichen"
+              minLength={8}
+              isSuccess={password.length > 7}
               success="Perfekt, das sieht sicher aus."
               required
+              rightElement={
+                <button
+                  type="button"
+                  onClick={() =>
+                    setPasswordType((prev) =>
+                      prev === "password" ? "text" : "password",
+                    )
+                  }
+                  className="text-cream-5 hover:text-mint-4 cursor-pointer"
+                >
+                  {passwordType === "password" ? (
+                    <FaEyeSlash size={20} />
+                  ) : (
+                    <FaEye size={20} />
+                  )}
+                </button>
+              }
             />
 
-            {/* Passwort wiederholen */}
-            {/* <Input
-              label="Passwort wiederholen"
-              type="password"
-              placeholder="Passwort wiederholen"
-              success="Doppelt geprüft, alles gut."
-              required
-            /> */}
+            {errorStatus && (
+              <p className="text-red-500 text-sm">{errorStatus}</p>
+            )}
 
             {/* Zustimmen */}
             <Checkbox required>
@@ -121,8 +154,6 @@ export default function RegisterForm() {
               Kostenlos registrieren
             </button>
           </form>
-
-          {errorStatus && <p className="text-red-500 text-sm">{errorStatus}</p>}
 
           {/* Divider */}
           {/* <Divider text="oder" /> */}
@@ -155,9 +186,6 @@ export default function RegisterForm() {
         </div>
         <div className="bg-cream-1 p-5 pr-10 max-w-xs flex items-center gap-3 rounded-full rotate-1">
           <span className="text-xl mb-2">🌸</span>
-          {/* <p className="font-semibold font-fraunces italic text-cream-5 mb-4">
-            "Endlich eine Seite, die aussieht wie ich - nicht wie eine Vorlage."
-          </p> */}
           <div>
             <p className="text-lg font-semibold">12.400+</p>
             <p className="text-sm text-cream-4">Seiten zum Blühen gebracht</p>

@@ -1,6 +1,7 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, ReactNode } from "react";
 
 type InputProps = {
+  id: string;
   label: string;
   type: string;
   value?: string;
@@ -8,12 +9,17 @@ type InputProps = {
   placeholder: string;
   isSuccess?: boolean;
   success?: string;
-  minLength?: number;
   autoFocus?: boolean;
   required?: boolean;
+  minLength?: number;
+  maxLength?: number;
+  pattern?: string;
+  title?: string;
+  rightElement?: ReactNode;
 };
 
 export default function Input({
+  id,
   label,
   type,
   value,
@@ -21,28 +27,47 @@ export default function Input({
   placeholder,
   isSuccess,
   success,
-  minLength,
   autoFocus,
   required,
+  minLength,
+  maxLength,
+  pattern,
+  title,
+  rightElement,
 }: InputProps) {
   return (
-    <div className="flex flex-col gap-1 mb-4">
-      <label htmlFor={label} className="text-sm font-medium">
+    <div className="flex flex-col flex-1 gap-1 mb-4">
+      <label htmlFor={id} className="text-sm font-medium">
         {label}
       </label>
-      <input
-        id={label}
-        className="lg:text-sm border border-cream-3 rounded-xl py-3 px-3.5 outline-mint-4"
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        minLength={minLength}
-        autoFocus={autoFocus}
-        required={required}
-      />
+
+      <div className="relative w-full">
+        <input
+          id={id}
+          className={`w-full lg:text-sm border border-cream-3 rounded-xl py-3 px-3.5 outline-mint-4 ${
+            rightElement ? "pr-12" : ""
+          }`}
+          type={type}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          autoFocus={autoFocus}
+          required={required}
+          minLength={minLength}
+          maxLength={maxLength}
+          pattern={pattern}
+          title={title}
+        />
+
+        {rightElement && (
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center">
+            {rightElement}
+          </div>
+        )}
+      </div>
+
       {isSuccess && (
-        <p className="font-fraunces text-sm font-medium text-mint-4">
+        <p className="font-fraunces text-sm font-medium text-mint-4 mt-1">
           {success}
         </p>
       )}

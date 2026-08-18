@@ -7,6 +7,7 @@ import Input from "../ui/Input";
 import { FormEvent, useState } from "react";
 import { signIn } from "@/lib/auth/auth-actions";
 import { useRouter } from "next/navigation";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -28,6 +29,10 @@ export default function LoginForm() {
     router.push("/dashboard");
   };
 
+  const [passwordType, setPasswordType] = useState<"password" | "text">(
+    "password",
+  );
+
   return (
     <div className="grid lg:grid-cols-2 lg:gap-48 gap-8 lg:max-w-7xl lg:mx-auto">
       <div className="flex flex-col gap-6 p-8">
@@ -44,9 +49,9 @@ export default function LoginForm() {
           <form onSubmit={handleSubmit} className="text-cream-5">
             {/* Email */}
             <Input
+              id="email"
               label="E-Mail"
               type="email"
-              // type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="du@beispiel.de"
@@ -56,12 +61,30 @@ export default function LoginForm() {
 
             {/* Passwort */}
             <Input
+              id="password"
               label="Passwort"
-              type="password"
+              type={passwordType}
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              rightElement={
+                <button
+                  type="button"
+                  onClick={() =>
+                    setPasswordType((prev) =>
+                      prev === "password" ? "text" : "password",
+                    )
+                  }
+                  className="text-cream-5 hover:text-mint-4 cursor-pointer"
+                >
+                  {passwordType === "password" ? (
+                    <FaEyeSlash size={20} />
+                  ) : (
+                    <FaEye size={20} />
+                  )}
+                </button>
+              }
             />
 
             {errorStatus && (
@@ -95,7 +118,7 @@ export default function LoginForm() {
           </button> */}
 
           <p className="font-light text-center">
-            Schon ein Konto?{" "}
+            Noch kein Konto?{" "}
             <Link className="text-mint-4 font-medium" href={"/register"}>
               Registrieren
             </Link>

@@ -6,31 +6,87 @@ export const signUp = async (
   displayName: string,
   username: string,
 ) => {
-  const { error, data } = await supabase.auth.signUp({
-    email,
+  const normalizedDisplayName = displayName.trim();
+
+  if (!normalizedDisplayName) {
+    return "Bitte gib deinen Namen ein.";
+  }
+
+  if (normalizedDisplayName.length > 40) {
+    return "Der Name darf maximal 40 Zeichen lang sein.";
+  }
+
+  const normalizedUsername = username.toLowerCase().trim();
+
+  if (!normalizedUsername) {
+    return "Bitte gib deinen Usernamen ein.";
+  }
+
+  if (!/^[a-z0-9]{3,20}$/.test(normalizedUsername)) {
+    return "Der Username darf nur Kleinbuchstaben und Zahlen enthalten.";
+  }
+
+  const normalizedEmail = email.toLowerCase().trim();
+
+  if (!normalizedEmail) {
+    return "Bitte gib deine E-Mail ein.";
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+    return "Bitte gib eine gültige E-Mail ein.";
+  }
+
+  const { data: existingUser, error: usernameError } = await supabase
+    .from("profiles")
+    .select("username")
+    .eq("username", normalizedUsername)
+    .maybeSingle();
+
+  if (usernameError) {
+    return "Fehler beim Überprüfen des Usernames.";
+  }
+
+  if (existingUser) {
+    return "Username existiert bereits.";
+  }
+
+  const { data, error: signUpError } = await supabase.auth.signUp({
+    email: normalizedEmail,
     password,
     options: {
       data: {
-        display_name: displayName,
-        username,
+        display_name: normalizedDisplayName,
+        username: normalizedUsername,
       },
     },
   });
 
-  await supabase.from("stats").insert({
-    user_id: data.user?.id,
-    views: 0,
-    views_7_days_ago: 0,
-    clicks: 0,
-    clicks_7_days_ago: 0,
-  });
+  if (signUpError) {
+    if (signUpError.code === "user_already_exists") {
+      return "E-Mail existiert bereits.";
+    }
 
-  if (error) return error;
+    if (signUpError.code === "weak_password") {
+      return "Das Passwort ist zu schwach.";
+    }
+
+    return "Bei der Registrierung ist ein Fehler aufgetreten.";
+  }
+
+  if (!data.user) {
+    return "Bei der Registrierung ist ein Fehler aufgetreten.";
+  }
 };
 
 export const signIn = async (email: string, password: string) => {
+  const normalizedEmail = email.toLowerCase().trim();
+
+  if (!normalizedEmail) {
+    return "Bitte gib deine E-Mail ein.";
+  }
+
   const { error } = await supabase.auth.signInWithPassword({
-    email,
+    email: normalizedEmail,
     password,
   });
 
