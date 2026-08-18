@@ -7,6 +7,7 @@ import Input from "../ui/Input";
 import { FormEvent, useState } from "react";
 import { signIn } from "@/lib/auth/auth-actions";
 import { useRouter } from "next/navigation";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -27,6 +28,10 @@ export default function LoginForm() {
 
     router.push("/dashboard");
   };
+
+  const [passwordType, setPasswordType] = useState<"password" | "text">(
+    "password",
+  );
 
   return (
     <div className="grid lg:grid-cols-2 lg:gap-48 gap-8 lg:max-w-7xl lg:mx-auto">
@@ -58,11 +63,28 @@ export default function LoginForm() {
             <Input
               id="password"
               label="Passwort"
-              type="password"
+              type={passwordType}
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              rightElement={
+                <button
+                  type="button"
+                  onClick={() =>
+                    setPasswordType((prev) =>
+                      prev === "password" ? "text" : "password",
+                    )
+                  }
+                  className="text-cream-5 hover:text-mint-4 cursor-pointer"
+                >
+                  {passwordType === "password" ? (
+                    <FaEyeSlash size={20} />
+                  ) : (
+                    <FaEye size={20} />
+                  )}
+                </button>
+              }
             />
 
             {errorStatus && (
