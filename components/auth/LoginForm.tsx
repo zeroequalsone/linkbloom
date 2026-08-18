@@ -44,9 +44,9 @@ export default function LoginForm() {
           <form onSubmit={handleSubmit} className="text-cream-5">
             {/* Email */}
             <Input
+              id="email"
               label="E-Mail"
               type="email"
-              // type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="du@beispiel.de"
@@ -56,6 +56,7 @@ export default function LoginForm() {
 
             {/* Passwort */}
             <Input
+              id="password"
               label="Passwort"
               type="password"
               placeholder="••••••••"
@@ -95,7 +96,7 @@ export default function LoginForm() {
           </button> */}
 
           <p className="font-light text-center">
-            Schon ein Konto?{" "}
+            Noch kein Konto?{" "}
             <Link className="text-mint-4 font-medium" href={"/register"}>
               Registrieren
             </Link>
