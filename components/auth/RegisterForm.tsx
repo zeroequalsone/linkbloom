@@ -105,9 +105,11 @@ export default function RegisterForm() {
               type={passwordType}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Mindestens 8 Zeichen"
+              placeholder="Mindestens 8 Zeichen (Groß-/Kleinbuchstaben, Zahl, Sonderzeichen)."
               minLength={8}
-              isSuccess={password.length > 7}
+              isSuccess={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/.test(
+                password,
+              )}
               success="Perfekt, das sieht sicher aus."
               required
               rightElement={
