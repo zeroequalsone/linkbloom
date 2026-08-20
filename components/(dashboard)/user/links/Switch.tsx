@@ -1,5 +1,5 @@
 "use client";
-import { updateEnabled } from "@/lib/supabase/link-actions";
+import { updateEnabled } from "@/lib/links/link-actions";
 import { useState } from "react";
 
 export default function Switch({
