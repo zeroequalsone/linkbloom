@@ -1,4 +1,4 @@
-import { deleteLink } from "@/lib/supabase/link-actions";
+import { deleteLink } from "@/lib/links/link-actions";
 import { useRouter } from "next/navigation";
 import {
   Dispatch,

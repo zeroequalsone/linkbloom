@@ -1,4 +1,4 @@
-import { editLink } from "@/lib/supabase/link-actions";
+import { editLink } from "@/lib/links/link-actions";
 import { useRouter } from "next/navigation";
 import {
   Dispatch,
