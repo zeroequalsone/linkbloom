@@ -20,13 +20,13 @@ export default async function DashboardDesignFont() {
       <p className="font-light text-cream-4 text-sm mb-4">
         Bestimmt, wie Name und Bio auf deiner Seite aussehen.
       </p>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid lg:grid-cols-3 grid-cols-2 gap-4">
         <FontButton
           font="elegant"
           name="Elegant"
           displayName={displayName}
           selected={profile?.font === "elegant"}
-          style="font-fraunces font-semibold italic text-xl"
+          style="font-fraunces font-semibold italic lg:text-xl"
         />
 
         <FontButton
@@ -34,7 +34,7 @@ export default async function DashboardDesignFont() {
           name="Klar"
           displayName={displayName}
           selected={profile?.font === "clear"}
-          style="font-semibold text-xl"
+          style="font-semibold lg:text-xl"
         />
 
         <FontButton
@@ -42,7 +42,7 @@ export default async function DashboardDesignFont() {
           name="Verspielt"
           displayName={displayName}
           selected={profile?.font === "playful"}
-          style="font-caveat font-bold text-3xl"
+          style="font-caveat font-bold lg:text-3xl text-xl"
         />
       </div>
     </section>

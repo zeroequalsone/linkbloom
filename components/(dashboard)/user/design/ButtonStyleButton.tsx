@@ -25,7 +25,7 @@ export default function ButtonStyleButton({
   return (
     <button
       onClick={handleClick}
-      className={`hover:border-cream-4 space-y-2 items-center p-3.5 bg-cream-1 rounded-xl border border-cream-3/25 outline-mint-4 cursor-pointer ${selected && "border-mint-4"}`}
+      className={`hover:border-cream-4 space-y-2 items-center p-3.5 bg-cream-1 rounded-xl border border-cream-3/25 outline-mint-4 cursor-pointer text-xs ${selected && "border-mint-4"}`}
     >
       {buttonStyle === "filled" && (
         <div className="hover:bg-mint-3 active:bg-mint-2 bg-mint-4 text-white px-5.5 py-2 rounded-lg cursor-pointer">
