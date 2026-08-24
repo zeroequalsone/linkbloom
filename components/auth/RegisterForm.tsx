@@ -7,7 +7,6 @@ import Checkbox from "../ui/Checkbox";
 import Input from "../ui/Input";
 import { FormEvent, useState } from "react";
 import { signUp } from "@/lib/auth/auth-actions";
-import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
   const [displayName, setDisplayName] = useState("");
@@ -15,7 +14,6 @@ export default function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorStatus, setErrorStatus] = useState("");
-  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -27,8 +25,6 @@ export default function RegisterForm() {
       setErrorStatus(error);
       return;
     }
-
-    router.push("/dashboard");
   };
 
   const [passwordType, setPasswordType] = useState<"password" | "text">(

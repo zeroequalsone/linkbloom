@@ -6,14 +6,12 @@ import Checkbox from "../ui/Checkbox";
 import Input from "../ui/Input";
 import { FormEvent, useState } from "react";
 import { signIn } from "@/lib/auth/auth-actions";
-import { useRouter } from "next/navigation";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorStatus, setErrorStatus] = useState("");
-  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -25,8 +23,6 @@ export default function LoginForm() {
       setErrorStatus("E-Mail oder Passwort ist falsch.");
       return;
     }
-
-    router.push("/dashboard");
   };
 
   const [passwordType, setPasswordType] = useState<"password" | "text">(
