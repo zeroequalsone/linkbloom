@@ -1,4 +1,7 @@
-import { supabase } from "../supabase/supabase-client";
+"use server";
+
+import { redirect } from "next/navigation";
+import { createSupabaseServerClient } from "./auth-server";
 
 export const signUp = async (
   email: string,
@@ -6,6 +9,8 @@ export const signUp = async (
   displayName: string,
   username: string,
 ) => {
+  const supabase = await createSupabaseServerClient();
+
   const normalizedDisplayName = displayName.trim();
 
   if (!normalizedDisplayName) {
@@ -76,9 +81,13 @@ export const signUp = async (
   if (!data.user) {
     return "Bei der Registrierung ist ein Fehler aufgetreten.";
   }
+
+  redirect("/dashboard");
 };
 
 export const signIn = async (email: string, password: string) => {
+  const supabase = await createSupabaseServerClient();
+
   const normalizedEmail = email.toLowerCase().trim();
 
   if (!normalizedEmail) {
@@ -91,8 +100,16 @@ export const signIn = async (email: string, password: string) => {
   });
 
   if (error) return error;
+
+  redirect("/dashboard");
 };
 
 export const logOut = async () => {
-  return await supabase.auth.signOut();
+  const supabase = await createSupabaseServerClient();
+
+  const { error } = await supabase.auth.signOut();
+
+  if (error) return error;
+
+  redirect("/login");
 };
