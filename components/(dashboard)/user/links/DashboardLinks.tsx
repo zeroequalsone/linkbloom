@@ -1,4 +1,3 @@
-import { getCurrentUser } from "@/lib/auth/auth-server";
 import { FaRegEnvelope, FaRegImage } from "react-icons/fa6";
 import { IoBagOutline } from "react-icons/io5";
 import { LuMusic } from "react-icons/lu";
@@ -6,6 +5,7 @@ import CreateLink from "./CreateLink";
 import DeleteLink from "./DeleteLink";
 import EditLink from "./EditLink";
 import Switch from "./Switch";
+import { getCurrentUser } from "@/lib/supabase/server";
 
 type Link = {
   id: string;

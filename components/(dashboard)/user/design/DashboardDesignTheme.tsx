@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/lib/auth/auth-server";
+import { getCurrentUser } from "@/lib/supabase/server";
 import ThemeButton from "./ThemeButton";
 
 export default async function DashboardDesignTheme() {

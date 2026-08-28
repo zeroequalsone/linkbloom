@@ -1,8 +1,8 @@
-import { getCurrentUser } from "@/lib/auth/auth-server";
 import Link from "next/link";
 import { GoGear } from "react-icons/go";
 import { LuChartNoAxesColumn, LuLink, LuPalette } from "react-icons/lu";
 import DashboardSidebarMobile from "./DashboardSidebarMobile";
+import { getCurrentUser } from "@/lib/supabase/server";
 
 const links = [
   {

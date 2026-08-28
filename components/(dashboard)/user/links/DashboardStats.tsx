@@ -5,7 +5,7 @@ import {
   LuMousePointerClick,
   LuUsers,
 } from "react-icons/lu";
-import { getCurrentUser } from "@/lib/auth/auth-server";
+import { getCurrentUser } from "@/lib/supabase/server";
 
 // const stats = [
 //   {
