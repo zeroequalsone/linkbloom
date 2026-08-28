@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/lib/auth/auth-server";
+import { getCurrentUser } from "@/lib/supabase/server";
 import NavbarClient from "./NavbarClient";
 
 export default async function Navbar() {

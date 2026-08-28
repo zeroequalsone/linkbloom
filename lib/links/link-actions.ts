@@ -1,5 +1,6 @@
 "use server";
-import { getCurrentUser } from "../auth/auth-server";
+
+import { getCurrentUser } from "../supabase/server";
 
 export const createLink = async (title: string, url: string) => {
   const { supabase, user } = await getCurrentUser();

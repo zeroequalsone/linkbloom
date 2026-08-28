@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/lib/auth/auth-server";
+import { getCurrentUser } from "@/lib/supabase/server";
 import FontButton from "./FontButton";
 
 export default async function DashboardDesignFont() {

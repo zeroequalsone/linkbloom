@@ -1,7 +1,7 @@
 import DashboardSidebar from "@/components/(dashboard)/user/DashboardSidebar";
-import DashboardContent from "@/components/(dashboard)/user/links/DashboardContent";
 import UserDashboard from "@/components/(dashboard)/user/links/UserDashboard";
-import { getCurrentUser } from "@/lib/auth/auth-server";
+import DashboardStatisticsContent from "@/components/(dashboard)/user/statistics/DashboardStatisticsContent";
+import { getCurrentUser } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
 export default async function User() {
@@ -13,9 +13,9 @@ export default async function User() {
 
   return (
     <UserDashboard>
-      <DashboardSidebar tab="Links" />
+      <DashboardSidebar tab="Statistiken" />
 
-      <DashboardContent />
+      <DashboardStatisticsContent />
     </UserDashboard>
   );
 }

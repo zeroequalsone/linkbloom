@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createSupabaseServerClient } from "./auth-server";
+import { createSupabaseServerClient } from "../supabase/server";
 
 export const signUp = async (
   email: string,

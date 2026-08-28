@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/lib/auth/auth-server";
+import { getCurrentUser } from "@/lib/supabase/server";
 import Link from "next/link";
 import { FiEye } from "react-icons/fi";
 

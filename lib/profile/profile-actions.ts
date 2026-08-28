@@ -1,6 +1,6 @@
 "use server";
 
-import { getCurrentUser } from "../auth/auth-server";
+import { getCurrentUser } from "../supabase/server";
 import { ButtonStyle, Font, Theme } from "./profile-types";
 
 export const updateTheme = async (theme: Theme) => {
