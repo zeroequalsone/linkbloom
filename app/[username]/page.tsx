@@ -16,7 +16,7 @@ export default async function UserProfilePage({
   params,
 }: UserProfilePageProps) {
   const { username } = await params;
-  const supabase = await createSupabaseServerClient();
+  const { user: loggedInUser, supabase } = await getCurrentUser();
 
   const { data: user } = await supabase
     .from("profiles")
@@ -37,18 +37,10 @@ export default async function UserProfilePage({
   const displayName = user.display_name;
   const displayNameInitial = displayName.charAt(0);
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("user_id", user.user_id)
-    .single();
-
-  const { user: loggedInUser } = await getCurrentUser();
-
-  const description = profile.description;
-  const theme = profile.theme;
-  const font = profile.font;
-  const buttonStyle = profile.button_style;
+  const description = user.description;
+  const theme = user.theme;
+  const font = user.font;
+  const buttonStyle = user.button_style;
 
   return (
     <div className="p-8">
