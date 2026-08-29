@@ -9,7 +9,7 @@ export default function NotFound() {
       </p>
       <Image
         src={"/spider-plant.png"}
-        alt="Golden Pothos Plant Image"
+        alt="Spider Plant Image"
         className="mb-4"
         height={96}
         width={96}
