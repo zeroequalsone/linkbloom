@@ -1,7 +1,8 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createSupabaseServerClient } from "../supabase/server";
+import { createSupabaseServerClient, getCurrentUser } from "../supabase/server";
+import { createClient } from "@supabase/supabase-js";
 
 export const signUp = async (
   email: string,
@@ -112,4 +113,23 @@ export const logOut = async () => {
   if (error) return error;
 
   redirect("/login");
+};
+
+export const deleteAccount = async () => {
+  const { user } = await getCurrentUser();
+
+  if (!user) redirect("/login");
+
+  const adminSupabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  );
+
+  const { error } = await adminSupabase.auth.admin.deleteUser(user.id);
+
+  if (error) {
+    return { message: error.message };
+  }
+
+  await logOut();
 };
