@@ -1,8 +1,8 @@
 import { getCurrentUser } from "@/lib/supabase/server";
-import DashboardSettingsHeader from "./DashboardSettingsHeader";
 import { redirect } from "next/navigation";
 import DashboardSettingsNotifications from "./DashboardSettingsNotifications";
 import DashboardSettingsDelete from "./DashboardSettingsDelete";
+import DashboardSettingsForm from "./DashboardSettingsForm";
 
 export default async function DashboardDesignContent() {
   const { user } = await getCurrentUser();
@@ -11,7 +11,7 @@ export default async function DashboardDesignContent() {
 
   return (
     <div className="w-full px-10 pt-8 pb-15">
-      <DashboardSettingsHeader user={user} />
+      <DashboardSettingsForm user={user} />
       <DashboardSettingsNotifications />
       <DashboardSettingsDelete />
     </div>

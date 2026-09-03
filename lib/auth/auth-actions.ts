@@ -3,6 +3,8 @@
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient, getCurrentUser } from "../supabase/server";
 import { createClient } from "@supabase/supabase-js";
+import { supabaseAdmin } from "../supabase/admin";
+import { revalidatePath } from "next/cache";
 
 export const signUp = async (
   email: string,
@@ -100,6 +102,7 @@ export const signIn = async (email: string, password: string) => {
     password,
   });
 
+  // TODO: Return custom error message
   if (error) return error;
 
   redirect("/dashboard");
@@ -110,6 +113,7 @@ export const logOut = async () => {
 
   const { error } = await supabase.auth.signOut();
 
+  // TODO: Return custom error message
   if (error) return error;
 
   redirect("/login");
@@ -127,9 +131,74 @@ export const deleteAccount = async () => {
 
   const { error } = await adminSupabase.auth.admin.deleteUser(user.id);
 
+  // TODO: Return custom error message
   if (error) {
     return { message: error.message };
   }
 
   await logOut();
+};
+
+export const updateProfile = async (formData: FormData) => {
+  const { user } = await getCurrentUser();
+
+  if (!user) return "Nicht authentifiziert.";
+
+  const displayName = (formData.get("displayName") as string) ?? "";
+  const username = (formData.get("username") as string) ?? "";
+  const email = (formData.get("email") as string) ?? "";
+
+  const normalizedDisplayName = displayName.trim();
+  const normalizedUsername = username.toLowerCase().trim();
+  const normalizedEmail = email.toLowerCase().trim();
+
+  if (!normalizedDisplayName) return "Bitte gib deinen Namen ein.";
+  if (!normalizedUsername) return "Bitte gib deinen Usernamen ein.";
+  if (!normalizedEmail) return "Bitte gib deine E-Mail ein.";
+
+  if (normalizedDisplayName.length > 40)
+    return "Der Name darf maximal 40 Zeichen lang sein.";
+  if (normalizedUsername.length < 3 || normalizedUsername.length > 20)
+    return "Der Username muss zwischen 3 und 20 Zeichen lang sein.";
+
+  const strictEmailRegex =
+    /^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*\@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!strictEmailRegex.test(normalizedEmail))
+    return "Bitte gib eine gültige E-Mail ein.";
+
+  if (!/^[a-z0-9]+$/.test(normalizedUsername))
+    return "Der Username darf nur Kleinbuchstaben und Zahlen enthalten.";
+
+  const { data: usernameTaken } = await supabaseAdmin
+    .from("profiles")
+    .select("user_id")
+    .eq("username", normalizedUsername)
+    .neq("user_id", user.id)
+    .maybeSingle();
+
+  if (usernameTaken) return "Dieser Username ist bereits vergeben.";
+
+  const { data: emailTaken } = await supabaseAdmin.rpc("check_email_exists", {
+    email_to_check: normalizedEmail,
+    current_user_id: user.id,
+  });
+
+  if (emailTaken) return "Diese E-Mail ist bereits vergeben.";
+
+  const { error: authError } = await supabaseAdmin.auth.admin.updateUserById(
+    user.id,
+    {
+      email: normalizedEmail,
+      email_confirm: true,
+      user_metadata: {
+        email: normalizedEmail,
+        display_name: normalizedDisplayName,
+        username: normalizedUsername,
+      },
+    },
+  );
+
+  if (authError) return "Profil konnte nicht aktualisiert werden.";
+
+  revalidatePath("/dashboard/settings");
 };

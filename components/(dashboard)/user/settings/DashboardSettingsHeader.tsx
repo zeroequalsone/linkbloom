@@ -1,7 +1,21 @@
 import { User } from "@supabase/supabase-js";
 import SaveButton from "./SaveButton";
 
-export default function DashboardSettingsHeader({ user }: { user: User }) {
+type Props = {
+  user: User;
+  newDisplayName: string;
+  newUsername: string;
+  newEmail: string;
+  isPending: boolean;
+};
+
+export default function DashboardSettingsHeader({
+  user,
+  newDisplayName,
+  newUsername,
+  newEmail,
+  isPending,
+}: Props) {
   return (
     <div className="flex justify-between items-center mb-7">
       <div>
@@ -12,7 +26,13 @@ export default function DashboardSettingsHeader({ user }: { user: User }) {
           Verwalte dein Konto, Benachrichtigungen und deinen Plan.
         </p>
       </div>
-      <SaveButton />
+      <SaveButton
+        user={user}
+        newDisplayName={newDisplayName}
+        newUsername={newUsername}
+        newEmail={newEmail}
+        isPending={isPending}
+      />
     </div>
   );
 }
