@@ -202,3 +202,53 @@ export const updateProfile = async (formData: FormData) => {
 
   revalidatePath("/dashboard/settings");
 };
+
+export const updatePassword = async (formData: FormData) => {
+  const { user } = await getCurrentUser();
+
+  if (!user || !user.email) return "Nicht authentifiziert.";
+
+  const supabase = await createSupabaseServerClient();
+
+  const currentPassword = (formData.get("currentPassword") as string) ?? "";
+  const newPassword = (formData.get("newPassword") as string) ?? "";
+  const confirmPassword = (formData.get("confirmPassword") as string) ?? "";
+
+  if (!currentPassword) return "Bitte gib dein aktuelles Passwort ein.";
+  if (!newPassword) return "Bitte gib dein neues Passwort ein.";
+  if (!confirmPassword) return "Bitte bestätige dein neues Passwort.";
+
+  if (newPassword.length < 8) {
+    return "Mindestens 8 Zeichen (Groß-/Kleinbuchstaben, Zahl, Sonderzeichen).";
+  }
+
+  if (newPassword === currentPassword) {
+    return "Das neue Passwort darf nicht mit dem alten identisch sein.";
+  }
+
+  if (newPassword !== confirmPassword) {
+    return "Die neuen Passwörter stimmen nicht überein.";
+  }
+
+  const { error: signInError } = await supabase.auth.signInWithPassword({
+    email: user.email,
+    password: currentPassword,
+  });
+
+  if (signInError) {
+    return "Das aktuelle Passwort ist falsch.";
+  }
+
+  const { error: updateError } = await supabase.auth.updateUser({
+    password: newPassword,
+  });
+
+  if (updateError) {
+    if (updateError.code === "same_password") {
+      return "Das neue Passwort darf nicht mit dem alten identisch sein.";
+    }
+    return "Passwort erfüllt nicht die Sicherheitsanforderungen oder konnte nicht geändert werden.";
+  }
+
+  revalidatePath("/dashboard/settings");
+};

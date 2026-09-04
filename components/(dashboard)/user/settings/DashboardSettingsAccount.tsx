@@ -1,4 +1,5 @@
 "use client";
+import UpdatePasswordModal from "@/components/modals/settings/UpdatePasswordModal";
 import { updateProfile } from "@/lib/auth/auth-actions";
 import { FormEvent, TransitionStartFunction, useState } from "react";
 import { MdCheck, MdContentCopy } from "react-icons/md";
@@ -26,6 +27,7 @@ export default function DashboardSettingsAccount({
   const [copyError, setCopyError] = useState("");
   const [errorStatus, setErrorStatus] = useState("");
   const [saved, setSaved] = useState(false);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
   const copyToClipboard = async () => {
     setCopyError("");
@@ -139,27 +141,35 @@ export default function DashboardSettingsAccount({
             </div>
           </div>
         </div>
-
-        {errorStatus && <p className="text-red-500 text-sm">{errorStatus}</p>}
-        {saved && (
-          <p className="font-fraunces text-sm font-medium text-mint-4 mt-1">
-            Änderungen erfolgreich gespeichert.
-          </p>
-        )}
       </form>
 
-      <div className="mt-4 bg-cream-1 rounded-xl flex justify-between items-center py-3 px-3.5">
+      <div className="my-4 bg-cream-1 rounded-xl flex justify-between items-center py-3 px-3.5">
         <div className="flex flex-col gap-1">
           <p className="text-sm font-medium text-cream-6">Passwort</p>
+          {/* TODO: Add last changed at date */}
           <p className="text-xs text-cream-4">Zuletzt geändert am ----</p>
         </div>
+        {isPasswordModalOpen && (
+          <UpdatePasswordModal
+            setModalOpen={setIsPasswordModalOpen}
+            setSaved={setSaved}
+          />
+        )}
         <button
           type="button"
+          onClick={() => setIsPasswordModalOpen(true)}
           className="text-sm font-medium hover:bg-cream-3 hover:border-transparent active:bg-cream-3/50 flex justify-center gap-2 border-2 border-cream-3 px-5.5 py-1.5 rounded-lg cursor-pointer"
         >
           Ändern
         </button>
       </div>
+
+      {errorStatus && <p className="text-red-500 text-sm">{errorStatus}</p>}
+      {saved && (
+        <p className="font-fraunces text-sm font-medium text-mint-4">
+          Änderungen erfolgreich gespeichert.
+        </p>
+      )}
     </section>
   );
 }
