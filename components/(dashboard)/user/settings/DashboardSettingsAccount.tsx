@@ -3,6 +3,7 @@ import UpdatePasswordModal from "@/components/modals/settings/UpdatePasswordModa
 import { updateProfile } from "@/lib/auth/auth-actions";
 import { FormEvent, TransitionStartFunction, useState } from "react";
 import { MdCheck, MdContentCopy } from "react-icons/md";
+import ProfileToggleSwitch from "./ProfileToggleSwitch";
 
 type Props = {
   newDisplayName: string;
@@ -11,6 +12,7 @@ type Props = {
   setNewUsername: (username: string) => void;
   newEmail: string;
   setNewEmail: (email: string) => void;
+  isPublic: boolean;
   startTransition: TransitionStartFunction;
 };
 
@@ -21,6 +23,7 @@ export default function DashboardSettingsAccount({
   setNewUsername,
   newEmail,
   setNewEmail,
+  isPublic,
   startTransition,
 }: Props) {
   const [copied, setCopied] = useState(false);
@@ -65,10 +68,18 @@ export default function DashboardSettingsAccount({
 
   return (
     <section className="bg-cream-2 p-6 rounded-xl mb-5.5">
-      <p className="text-lg font-fraunces font-semibold">Konto</p>
-      <p className="font-light text-cream-4 text-sm mb-4">
-        Deine Basisdaten und wie man dich findet.
-      </p>
+      <div className="flex lg:flex-row flex-col justify-between lg:items-center gap-4 mb-4">
+        <div>
+          <p className="text-lg font-fraunces font-semibold">Konto</p>
+          <p className="font-light text-cream-4 text-sm">
+            Deine Basisdaten und wie man dich findet.
+          </p>
+        </div>
+        <div className="flex items-center gap-4">
+          <span className="font-fraunces font-semibold">Profil anzeigen</span>
+          <ProfileToggleSwitch enabled={isPublic} />
+        </div>
+      </div>
 
       <form id="profile-form" onSubmit={handleSubmit} method="POST">
         <div className="grid lg:grid-cols-2 gap-4 text-cream-5 mb-4">
