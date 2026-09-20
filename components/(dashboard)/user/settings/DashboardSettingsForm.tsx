@@ -4,7 +4,24 @@ import DashboardSettingsAccount from "./DashboardSettingsAccount";
 import { User } from "@supabase/supabase-js";
 import { useState, useTransition } from "react";
 
-export default function DashboardSettingsForm({ user }: { user: User }) {
+type Profile = {
+  user_id: string;
+  username: string;
+  theme: string;
+  font: string;
+  button_style: string;
+  display_name: string;
+  public: boolean;
+  description: string;
+};
+
+export default function DashboardSettingsForm({
+  user,
+  profile,
+}: {
+  user: User;
+  profile: Profile;
+}) {
   const [newDisplayName, setNewDisplayName] = useState(
     user.user_metadata?.display_name ?? "",
   );
@@ -12,6 +29,8 @@ export default function DashboardSettingsForm({ user }: { user: User }) {
     user.user_metadata?.username ?? "",
   );
   const [newEmail, setNewEmail] = useState(user.email ?? "");
+
+  const isPublic = profile.public;
 
   const [isPending, startTransition] = useTransition();
 
@@ -31,6 +50,7 @@ export default function DashboardSettingsForm({ user }: { user: User }) {
         setNewUsername={setNewUsername}
         newEmail={newEmail}
         setNewEmail={setNewEmail}
+        isPublic={isPublic}
         startTransition={startTransition}
       />
     </>

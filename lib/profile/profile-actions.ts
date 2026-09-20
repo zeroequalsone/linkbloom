@@ -50,3 +50,15 @@ export const updateButtonStyle = async (buttonStyle: ButtonStyle) => {
 
   if (error) return error;
 };
+
+export const toggleProfilePublic = async (enabled: boolean) => {
+  const { supabase, user } = await getCurrentUser();
+  if (!user) throw new Error("Not authenticated");
+
+  const { error } = await supabase
+    .from("profiles")
+    .update({ public: enabled })
+    .eq("user_id", user.id);
+
+  if (error) throw error;
+};
