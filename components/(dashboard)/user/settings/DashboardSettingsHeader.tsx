@@ -17,7 +17,7 @@ export default function DashboardSettingsHeader({
   isPending,
 }: Props) {
   return (
-    <div className="flex justify-between items-center mb-7">
+    <div className="flex md:flex-row flex-col justify-between gap-4 md:items-center mb-7">
       <div>
         <p className="text-3xl font-fraunces font-semibold mb-1.5">
           Einstellungen

@@ -82,7 +82,7 @@ export default function DashboardSettingsAccount({
       </div>
 
       <form id="profile-form" onSubmit={handleSubmit} method="POST">
-        <div className="grid lg:grid-cols-2 gap-4 text-cream-5 mb-4">
+        <div className="flex flex-col gap-4 text-cream-5 mb-4">
           <div className="flex flex-col flex-1 gap-1">
             <label htmlFor="displayName" className="text-sm font-medium">
               Name
@@ -154,7 +154,7 @@ export default function DashboardSettingsAccount({
         </div>
       </form>
 
-      <div className="my-4 bg-cream-1 rounded-xl flex justify-between items-center py-3 px-3.5">
+      <div className="bg-cream-1 rounded-xl flex md:flex-row flex-col justify-between md:items-center py-3 px-3.5 gap-2">
         <div className="flex flex-col gap-1">
           <p className="text-sm font-medium text-cream-6">Passwort</p>
           {/* TODO: Add last changed at date */}
