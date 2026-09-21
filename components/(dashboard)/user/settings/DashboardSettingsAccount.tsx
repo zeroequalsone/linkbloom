@@ -75,7 +75,7 @@ export default function DashboardSettingsAccount({
             Deine Basisdaten und wie man dich findet.
           </p>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center justify-between gap-4">
           <span className="font-fraunces font-semibold">Profil anzeigen</span>
           <ProfileToggleSwitch enabled={isPublic} />
         </div>
