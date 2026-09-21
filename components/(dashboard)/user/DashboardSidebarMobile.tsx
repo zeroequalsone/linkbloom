@@ -62,7 +62,7 @@ export default function DashboardSidebarMobile({
 
   return (
     <div
-      className={`fixed lg:hidden bottom-0 w-full py-4 bg-cream-2 border-r border-cream-3/25 transition-transform duration-300 ${
+      className={`z-50 fixed lg:hidden bottom-0 w-full py-4 bg-cream-2 border-r border-cream-3/25 transition-transform duration-300 ${
         footerVisible ? "translate-y-full" : "translate-y-0"
       }`}
     >
