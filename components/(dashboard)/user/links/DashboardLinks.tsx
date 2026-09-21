@@ -1,6 +1,3 @@
-import { FaRegEnvelope, FaRegImage } from "react-icons/fa6";
-import { IoBagOutline } from "react-icons/io5";
-import { LuMusic } from "react-icons/lu";
 import CreateLink from "./CreateLink";
 import DeleteLink from "./DeleteLink";
 import EditLink from "./EditLink";
@@ -35,7 +32,7 @@ export default async function DashboardLinks() {
           data.map((link) => (
             <div
               key={link.id}
-              className="flex items-center justify-between border hover:border-cream-3 border-cream-3/25 rounded-xl px-4 py-3.5 select-none"
+              className="flex flex-col md:flex-row gap-4 md:items-center justify-between border hover:border-cream-3 border-cream-3/25 rounded-xl px-4 py-3.5 select-none"
             >
               <div className="flex items-center gap-3.5">
                 <div className="bg-cream-2 p-3 rounded-xl"></div>
