@@ -39,7 +39,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col bg-cream-1 text-cream-6">
         <Navbar />
-        <main>{children}</main>
+        <main className="mt-34">{children}</main>
         <Footer />
       </body>
     </html>
