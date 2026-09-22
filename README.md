@@ -11,9 +11,9 @@
 👤 **Beispielprofil:** [/zeroequalsone](https://linkbloom-two.vercel.app/zeroequalsone)
 
 <p align="center">
-  <img src="screenshots/links-dashboard.png" width="30%" />
-  <img src="screenshots/design-dashboard.png" width="30%" />
-  <img src="screenshots/profile.png" width="30%" />
+  <img src="screenshots/DashboardLinks.png" width="30%" />
+  <img src="screenshots/DashboardDesign.png" width="30%" />
+  <img src="screenshots/UserProfilePage.png" width="30%" />
 </p>
 <p align="center"><em>Link-Dashboard · Design-Einstellungen · Öffentliches Profil</em></p>
 
