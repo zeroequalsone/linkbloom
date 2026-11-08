@@ -23,7 +23,8 @@ export const editLink = async (linkId: string, title: string, url: string) => {
   const { error } = await supabase
     .from("links")
     .update({ title, url })
-    .eq("id", linkId);
+    .eq("id", linkId)
+    .eq("user_id", user.id);
 
   if (error) return error;
 };
@@ -48,7 +49,8 @@ export const updateEnabled = async (linkId: string, enabled: boolean) => {
   const { error } = await supabase
     .from("links")
     .update({ enabled })
-    .eq("id", linkId);
+    .eq("id", linkId)
+    .eq("user_id", user.id);
 
   if (error) throw error;
 };
