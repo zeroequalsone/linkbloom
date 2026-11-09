@@ -1,4 +1,5 @@
 import { createLink } from "@/lib/links/link-actions";
+import { validateLink } from "@/lib/links/validate";
 import { useRouter } from "next/navigation";
 import {
   Dispatch,
@@ -31,15 +32,9 @@ export default function CreateLinkModal({
     e.preventDefault();
     setErrorStatus("");
 
-    if (title.trim().length === 0) {
-      setErrorStatus("Bitte gib einen gültigen Titel ein.");
-      return;
-    }
-
-    try {
-      new URL(url);
-    } catch {
-      setErrorStatus("Bitte gib eine gültige URL ein.");
+    const message = validateLink(title, url);
+    if (message) {
+      setErrorStatus(message);
       return;
     }
 
