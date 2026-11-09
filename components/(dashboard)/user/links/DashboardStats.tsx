@@ -34,6 +34,14 @@ type Stat = {
   clicks_7_days_ago: number;
 };
 
+const EMPTY_STAT: Stat = {
+  id: "",
+  views: 0,
+  views_7_days_ago: 0,
+  clicks: 0,
+  clicks_7_days_ago: 0,
+};
+
 export default async function DashboardStats() {
   const { user, supabase } = await getCurrentUser();
 
@@ -42,9 +50,7 @@ export default async function DashboardStats() {
     .select("*")
     .eq("user_id", user?.id);
 
-  if (!data) return;
-
-  const stat = data[0];
+  const stat = data?.[0] ?? EMPTY_STAT;
 
   const currentClickRate =
     stat.views > 0 ? (stat.clicks / stat.views) * 100 : 0;
