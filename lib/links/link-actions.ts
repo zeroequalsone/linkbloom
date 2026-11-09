@@ -1,15 +1,19 @@
 "use server";
 
 import { getCurrentUser } from "../supabase/server";
+import { validateLink } from "./validate";
 
 export const createLink = async (title: string, url: string) => {
   const { supabase, user } = await getCurrentUser();
   if (!user) throw new Error("Not authenticated");
 
+  const message = validateLink(title, url);
+  if (message) return { message };
+
   const { error } = await supabase.from("links").insert({
     user_id: user.id,
-    title,
-    url,
+    title: title.trim(),
+    url: url.trim(),
     enabled: true,
   });
 
@@ -20,9 +24,12 @@ export const editLink = async (linkId: string, title: string, url: string) => {
   const { supabase, user } = await getCurrentUser();
   if (!user) throw new Error("Not authenticated");
 
+  const message = validateLink(title, url);
+  if (message) return { message };
+
   const { error } = await supabase
     .from("links")
-    .update({ title, url })
+    .update({ title: title.trim(), url: url.trim() })
     .eq("id", linkId)
     .eq("user_id", user.id);
 
