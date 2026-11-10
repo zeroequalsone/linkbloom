@@ -60,9 +60,20 @@ alter table public.profiles enable row level security;
 alter table public.links enable row level security;
 alter table public.stats enable row level security;
 
--- links: public read (needed for public profile pages), owner-only writes
-create policy "Enable read access for all users" on public.links
-  for select to public using (true);
+-- links: owner sees all own links, others only enabled links of public profiles.
+-- Writes are owner-only.
+create policy "Read own or enabled links of public profiles" on public.links
+  for select to public
+  using (
+    (select auth.uid()) = user_id
+    or (
+      enabled = true
+      and exists (
+        select 1 from public.profiles p
+        where p.user_id = links.user_id and p.public = true
+      )
+    )
+  );
 create policy "Enable insert for users based on user_id" on public.links
   for insert to public with check ((select auth.uid()) = user_id);
 create policy "Enable update for users based on user_id" on public.links
@@ -72,11 +83,12 @@ create policy "Enable update for users based on user_id" on public.links
 create policy "Enable delete for users based on user_id" on public.links
   for delete to public using ((select auth.uid()) = user_id);
 
--- profiles: public read, owner-only update.
+-- profiles: readable only if public (or own profile), owner-only update.
 -- No insert/delete policy: rows are created by the handle_new_user trigger
 -- and removed via ON DELETE CASCADE when the auth user is deleted.
-create policy "Enable read access for all users" on public.profiles
-  for select to public using (true);
+create policy "Read public or own profile" on public.profiles
+  for select to public
+  using (public = true or (select auth.uid()) = user_id);
 create policy "Enable update for users based on user_id" on public.profiles
   for update to public using ((select auth.uid()) = user_id);
 
