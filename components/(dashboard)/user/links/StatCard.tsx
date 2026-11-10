@@ -1,5 +1,4 @@
 import { IconType } from "react-icons";
-import { FaArrowTrendUp } from "react-icons/fa6";
 
 type StatCardProps = {
   title: string;

@@ -1,8 +1,6 @@
 "use client";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
-import { FcGoogle } from "react-icons/fc";
-import Divider from "../ui/Divider";
 import Checkbox from "../ui/Checkbox";
 import Input from "../ui/Input";
 import { FormEvent, useState } from "react";

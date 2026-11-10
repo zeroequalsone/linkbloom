@@ -1,10 +1,3 @@
-import { FaEye } from "react-icons/fa6";
-import StatCard from "./StatCard";
-import {
-  LuChartNoAxesColumn,
-  LuMousePointerClick,
-  LuUsers,
-} from "react-icons/lu";
 import { getCurrentUser } from "@/lib/supabase/server";
 
 // const stats = [
