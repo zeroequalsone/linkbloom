@@ -175,7 +175,8 @@ export default function RegisterForm() {
         <div className="bg-cream-1 p-5 pr-10 max-w-xs flex flex-col rounded-xl -rotate-2">
           <span className="text-xs mb-2">🌸🌸🌸🌸🌸</span>
           <p className="font-semibold font-fraunces italic text-cream-5 mb-4">
-            "Endlich eine Seite, die aussieht wie ich - nicht wie eine Vorlage."
+            &quot;Endlich eine Seite, die aussieht wie ich - nicht wie eine
+            Vorlage.&quot;
           </p>
           <div>
             <p className="text-sm font-semibold">Anastasija K.</p>
