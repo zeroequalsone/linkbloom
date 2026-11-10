@@ -44,7 +44,7 @@ export const signUp = async (
     return "Bitte gib eine gültige E-Mail ein.";
   }
 
-  const { data: existingUser, error: usernameError } = await supabase
+  const { data: existingUser, error: usernameError } = await supabaseAdmin
     .from("profiles")
     .select("username")
     .eq("username", normalizedUsername)
