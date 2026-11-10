@@ -1,5 +1,4 @@
 "use client";
-import { updateEnabled } from "@/lib/links/link-actions";
 import { useState } from "react";
 
 export default function SettingsSwitch({

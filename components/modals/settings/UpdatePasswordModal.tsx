@@ -1,5 +1,4 @@
 "use client";
-import Input from "@/components/ui/Input";
 import { updatePassword } from "@/lib/auth/auth-actions";
 import { FormEvent, useEffect, useState, useTransition } from "react";
 import { LuX } from "react-icons/lu";

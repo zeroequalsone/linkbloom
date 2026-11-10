@@ -1,6 +1,5 @@
 import Button from "@/components/ui/Button";
 import {
-  createSupabaseServerClient,
   getCurrentUser,
 } from "@/lib/supabase/server";
 import Image from "next/image";
