@@ -1,78 +1,85 @@
-# LinkBloom
+# Linkbloom 🌱
 
-> Eine Fullstack Link-in-Bio-Plattform — erstelle eine personalisierte Seite, verwalte deine Links und passe dein Design in Echtzeit an.
+**Linkbloom** ist eine Fullstack Link-in-Bio-Plattform auf Basis von Next.js (App Router) und Supabase. Nutzer erstellen ein Konto, verwalten ihre Links, passen das Design ihres öffentlichen Profils an und teilen eine URL.
 
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat&logo=supabase&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white)
+<p>
+  <img src="https://img.shields.io/badge/Next.js-000000?&logo=nextdotjs&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/React-20232A?&logo=react&logoColor=white" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Supabase-3ECF8E?&logo=supabase&logoColor=white" alt="Supabase" />
+  <img src="https://img.shields.io/badge/Vercel-000000?&logo=vercel&logoColor=white" alt="Vercel" />
+</p>
 
-🔗 **Live-Demo:** [linkbloom-two.vercel.app](https://linkbloom-two.vercel.app/)
-👤 **Beispielprofil:** [/zeroequalsone](https://linkbloom-two.vercel.app/zeroequalsone)
+## Live Demo
+
+<a href="https://linkbloom-two.vercel.app/">Linkbloom 🌱</a> · <a href="https://linkbloom-two.vercel.app/zeroequalsone">Beispielprofil</a>
+
+## Screenshots
 
 <p align="center">
-  <img src="screenshots/DashboardLinks.png" width="30%" />
-  <img src="screenshots/DashboardDesign.png" width="30%" />
-  <img src="screenshots/UserProfilePage.png" width="30%" />
+  <img src="./screenshots/DashboardLinks.png" width="32%" alt="Link-Dashboard" />
+  <img src="./screenshots/DashboardDesign.png" width="32%" alt="Design-Einstellungen" />
+  <img src="./screenshots/UserProfilePage.png" width="32%" alt="Öffentliches Profil" />
 </p>
 <p align="center"><em>Link-Dashboard · Design-Einstellungen · Öffentliches Profil</em></p>
 
 ## Über das Projekt
 
-LinkBloom ist eine Link-in-Bio-Plattform (ähnlich Linktree): Nutzer erstellen ein Konto, verwalten ihre Links, passen das Aussehen ihres öffentlichen Profils an und teilen eine URL. Ich habe es gebaut, um über reine Frontend-Arbeit hinauszugehen und echte Erfahrung mit Auth, Datenbankdesign und dem Synchronhalten von Dashboard und öffentlicher Seite zu sammeln — ohne dabei die Komponenten-/UI-Arbeit zu vernachlässigen, die weiterhin mein Schwerpunkt als Frontend-Entwickler ist.
+Ich habe Linkbloom gebaut, um über reine Frontend-Arbeit hinauszugehen und echte Erfahrung mit Auth, Datenbankdesign und dem Synchronhalten von Dashboard und öffentlicher Seite zu sammeln, ohne die Komponenten- und UI-Arbeit zu vernachlässigen, die weiterhin mein Schwerpunkt ist.
 
-## Features
+## Highlights
 
-### Authentifizierung
-- Vollständiger Account-Lifecycle via Supabase Auth: Registrieren, Einloggen, Ausloggen
-- Nutzername, E-Mail und Passwort im Einstellungs-Dashboard änderbar
-- Endgültiges Löschen des Kontos (entfernt Profil, Links und Statistiken)
+- **Authentifizierung**: Registrieren, Einloggen, Ausloggen über Supabase Auth (Client- und Server-seitig). Nutzername, E-Mail und Passwort sind im Einstellungs-Dashboard änderbar. Beim Löschen des Kontos werden Profil, Links und Statistiken entfernt.
+- **Link-Verwaltung**: Links erstellen, bearbeiten, löschen und per Toggle aktivieren oder deaktivieren. Der zuletzt erstellte Link steht oben, manuelles Umsortieren gibt es noch nicht.
+- **Öffentliches Profil** (`/<username>`): Für jeden sichtbar, auch ohne Login. Es zeigt maximal 5 aktive Links (die Begrenzung gilt nur in der Anzeige, nicht beim Erstellen).
+- **Sichtbarkeit**: Das Profil lässt sich im Dashboard öffentlich oder nicht öffentlich schalten, unabhängig davon, welche Links aktiv sind. Nicht öffentliche Profile werden nicht gefunden (404).
+- **Design-Anpassung**: Farbthema, Schriftart und Button-Stil für das öffentliche Profil. Änderungen werden sofort gespeichert und beim nächsten Laden der Profilseite sichtbar. Eine Live-Vorschau im Dashboard gibt es noch nicht.
+- **Bearbeiten-Button**: Nur der eingeloggte Besitzer sieht auf seinem eigenen Profil einen Button zurück ins Dashboard.
+- **Fehlerseiten**: Eigene 404-Seite und Error-Boundary im Stil der App.
+- **Analytics** _(in Arbeit)_: Die Berechnungslogik für Aufrufe und Klickrate ist implementiert, das Klick-Tracking selbst noch nicht. Geplant ist eine Deduplizierung pro Besucher über Browser-Speicher statt IP-Tracking, um Datenschutz-Abwägungen der IP-Speicherung zu vermeiden. Die Zahlen auf der Login- und Registrierungsseite sind Platzhalter.
 
-### Dashboard
-- Zentrales Dashboard mit gemeinsamer Sidebar über alle Unteransichten hinweg, die den aktuell aktiven Bereich hervorhebt
-- Einstellungsseite für Konto, Benachrichtigungen und Plan
+## Sicherheit und Datenbank
 
-### Link-Verwaltung
-- Links erstellen, bearbeiten, löschen und aktivieren/deaktivieren (Toggle)
-- Der zuletzt erstellte Link wird zuerst angezeigt, manuelles Umsortieren gibt es noch nicht (siehe Roadmap)
-- Das öffentliche Profil zeigt maximal 5 aktive Links
+Das Schema liegt in [`supabase/schema.sql`](./supabase/schema.sql): Tabellen, Constraints, RLS-Policies, Trigger und Funktionsrechte. Die Datei ist aus dem Live-Projekt rekonstruiert und dokumentiert den Ist-Zustand, sie ist keine Migration.
 
-### Design-Anpassung
-- Auswahl von Farbthema, Schriftart und Button-Stil für das öffentliche Profil
-- Änderungen werden sofort gespeichert und sind beim nächsten Laden des öffentlichen Profils sichtbar — egal ob durch den Besitzer selbst oder durch Besucher
-- Hinweis: Aktuell gibt es keine Live-Vorschau *im* Dashboard selbst — das Ergebnis sieht man erst auf der öffentlichen Profilseite. Eine Vorschau im Dashboard steht auf der Roadmap.
+- **Row Level Security** ist auf allen Tabellen aktiv. Schreibzugriffe sind auf den eigenen Datensatz beschränkt (`auth.uid() = user_id`).
+- **Lesezugriff** wird in der Datenbank durchgesetzt, nicht nur in der UI: Profile sind nur lesbar, wenn sie öffentlich sind (oder dem eingeloggten Nutzer gehören). Fremde Links sind nur lesbar, wenn sie aktiv sind und zu einem öffentlichen Profil gehören.
+- **Profil und Statistiken** werden per Datenbank-Trigger bei der Registrierung angelegt.
+- **Server-only Prüfungen** (E-Mail oder Nutzername schon vergeben) laufen über den Service-Role-Client. Die Funktion `check_email_exists` ist für `anon` und `authenticated` gesperrt, damit niemand Konten per API durchprobieren kann.
 
-### Bearbeiten-Button nur für den Besitzer
-- Ist der eingeloggte Besitzer auf seinem eigenen öffentlichen Profil, erscheint ein "Bearbeiten"-Button, der direkt zurück ins Dashboard führt
-- Besucher — egal ob ausgeloggt oder als jemand anderes eingeloggt — sehen diesen Button nie
+## Projektstruktur
 
-### Analytics *(in Arbeit)*
-- Die Berechnungslogik für Aufrufzahlen ist implementiert und korrekt
-- Das eigentliche Klick-Tracking ist aktuell in Arbeit. Geplanter Ansatz: Deduplizierung pro Besucher über Browser-Cache/localStorage (in etwa ein gezählter Aufruf pro Profil und Besucher), statt IP-basiertem Tracking, um den Aufwand und die Datenschutz-Abwägungen von IP-Speicherung zu vermeiden
-
-## Roadmap
-- [ ] Klick-Tracking für Analytics (siehe oben)
-- [ ] Links per Drag & Drop umsortieren
-- [ ] Live-Vorschau des Designs direkt im Dashboard
+- `app/`: Seiten und Routen (Landing, Login/Registrierung, Dashboard, `[username]` für das öffentliche Profil)
+- `components/`: UI-Komponenten, gruppiert nach Bereich (`(dashboard)`, `auth`, `modals`, `ui`)
+- `lib/`: Server Actions (Auth, Links, Profil), Supabase-Clients, Validierung
+- `supabase/`: Datenbankschema und Policies
 
 ## Tech-Stack
-- **Next.js** — App Router, Server- und Client-Komponenten, API-Routen
-- **Supabase** — Auth (sowohl Client- als auch Server-seitig) und Postgres-Datenbank
-- **Tailwind CSS** — Styling
-- **react-icons** — Icon-Set für die UI
-- **SVGR** — Import von SVGs als React-Komponenten
-- **Vercel** — CI/CD, automatisches Deployment vom `main`-Branch auf GitHub
 
-## Herausforderungen & Was ich gelernt habe
-- **Supabase Auth, Client *und* Server-seitig:** Erste Nutzung von Supabase überhaupt. Die meisten Tutorials, die ich gefunden habe, haben nur Client-seitige Auth-Flows behandelt — meine App brauchte aber auch Server-seitige Auth. Das richtig hinzubekommen bedeutete, mich Schritt für Schritt durch die Supabase-Dokumentation zu arbeiten und KI als Lernhilfe zu nutzen, um zu verstehen, *warum* etwas funktioniert, statt einfach nur Code zu kopieren.
+- **Framework**: Next.js (App Router, Server- und Client-Komponenten, Server Actions) + React
+- **Sprache**: TypeScript
+- **Backend**: Supabase (Auth und Postgres mit Row Level Security)
+- **Styling**: Tailwind CSS
+- **UI**: react-icons, SVGR
+- **Deployment**: Vercel (automatisches Deployment vom `main`-Branch, Preview-Builds pro Branch)
 
-## Workflow
-- Durchgängig Conventional Commits
-- Feature-Branches mit sprechenden Namen, gemerged via Squash & Merge
-- Supabase-GitHub-Integration und Vercel-Preview-Builds prüfen bei jedem Branch, ob er baubar ist, bevor gemerged wird
+## Roadmap
 
-## Lokal ausführen
-Die Live-Version wird automatisch von GitHub auf Vercel deployed, das Projekt lässt sich aber auch lokal ausführen:
+- [ ] Klick-Tracking für Analytics
+- [ ] Links per Drag & Drop umsortieren
+- [ ] Live-Vorschau des Designs im Dashboard
+- [ ] Tests und CI (Lint, Build) mit GitHub Actions
+- [ ] Accessibility-Verbesserungen (Toggles und Modal-Buttons per Tastatur bedienbar)
+
+## Lokal starten
+
+### Voraussetzungen
+
+- Node.js und npm
+- Ein eigenes Supabase-Projekt
+
+### Setup
 
 ```bash
 git clone https://github.com/zeroequalsone/linkbloom.git
@@ -80,13 +87,35 @@ cd linkbloom
 npm install
 ```
 
-Anschließend eine Datei `.env.local` im Projekt-Root anlegen (die benötigten Variablennamen stehen in `.env.local.example`) und dort die eigene Supabase-Projekt-URL sowie den Anon-Key eintragen.
+1. Im Supabase-Projekt den Inhalt von `supabase/schema.sql` im SQL Editor ausführen.
+2. Eine Datei `.env.local` im Projekt-Root anlegen. Die benötigten Variablen stehen in `.env.local.example`.
 
 ```bash
 npm run dev
 ```
 
+Dann im Browser öffnen: `http://localhost:3000`
+
+### Weitere Befehle
+
+```bash
+npm run lint       # ESLint
+npm run build      # Produktions-Build
+```
+
+## Workflow
+
+- Conventional Commits
+- Ein Zweck pro Branch, gemerged via Squash and Merge
+- Supabase-GitHub-Integration und Vercel-Preview-Builds prüfen jeden Branch vor dem Merge
+
+## Herausforderungen und was ich gelernt habe
+
+- **Supabase Auth, Client und Server-seitig**: Erste Nutzung von Supabase überhaupt. Die meisten Tutorials behandeln nur Client-seitige Flows, meine App brauchte aber auch Server-seitige Auth. Ich habe mich durch die Dokumentation gearbeitet und KI als Lernhilfe genutzt, um zu verstehen, _warum_ etwas funktioniert, statt Code zu kopieren.
+- **Sicherheit gehört in die Datenbank**: Filter in meinem App-Code (`.eq("enabled", true)`) schützen nichts, weil der Anon-Key im Client-Bundle steckt und jeder die Supabase-API direkt aufrufen kann. Beim Prüfen mit `curl` habe ich gesehen, dass nicht öffentliche Profile lesbar waren. Seitdem setzen RLS-Policies die Sichtbarkeit durch.
+
 ## Über mich
-Ich bin Sebastian Götze, Junior Frontend Developer. LinkBloom ist eines von zwei Portfolio-Projekten, die unterschiedliche Seiten meiner Arbeit zeigen: Dieses hier ist Fullstack-fokussiert, während mein anderes Projekt, **Orbit**, stärker datengetrieben ist und auf selbst zusammengestellten Datensätzen aufbaut.
+
+Ich bin Sebastian Götze, Junior Frontend Developer. Linkbloom ist eines von mehreren Portfolio-Projekten, die unterschiedliche Seiten meiner Arbeit zeigen: Dieses hier ist Fullstack-fokussiert, während mein Projekt **Orbit** stärker datengetrieben ist und auf selbst zusammengestellten Datensätzen aufbaut.
 
 - 🌐 [Mein Portfolio ansehen](https://sgoetze.vercel.app/)
