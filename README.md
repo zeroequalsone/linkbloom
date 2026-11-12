@@ -15,6 +15,15 @@
 
 <a href="https://linkbloom-two.vercel.app/">Linkbloom 🌱</a> · <a href="https://linkbloom-two.vercel.app/zeroequalsone">Beispielprofil</a>
 
+### Demo-Zugang
+
+Zum Ausprobieren des Dashboards gibt es ein geteiltes Demo-Konto:
+
+- **E-Mail:** `demo@link.bloom`
+- **Passwort:** `Linkbloom1234!`
+
+Das Konto ist schreibgeschützt: Links, Design, Sichtbarkeit, Nutzername, E-Mail, Passwort und das Löschen des Kontos sind gesperrt. Zum Ausprobieren aller Funktionen kannst du dir ein eigenes Konto anlegen.
+
 ## Screenshots
 
 <p align="center">
