@@ -6,6 +6,9 @@ import { createClient } from "@supabase/supabase-js";
 import { supabaseAdmin } from "../supabase/admin";
 import { revalidatePath } from "next/cache";
 
+const DEMO_USER_ID = process.env.DEMO_USER_ID;
+const DEMO_LOCKED_MESSAGE = "Das Demo-Konto ist schreibgeschützt.";
+
 export const signUp = async (
   email: string,
   password: string,
@@ -124,6 +127,8 @@ export const deleteAccount = async () => {
 
   if (!user) redirect("/login");
 
+  if (user.id === DEMO_USER_ID) return { message: DEMO_LOCKED_MESSAGE };
+
   const adminSupabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
@@ -143,6 +148,8 @@ export const updateProfile = async (formData: FormData) => {
   const { user } = await getCurrentUser();
 
   if (!user) return "Nicht authentifiziert.";
+
+  if (user.id === DEMO_USER_ID) return DEMO_LOCKED_MESSAGE;
 
   const displayName = (formData.get("displayName") as string) ?? "";
   const username = (formData.get("username") as string) ?? "";
@@ -207,6 +214,8 @@ export const updatePassword = async (formData: FormData) => {
   const { user } = await getCurrentUser();
 
   if (!user || !user.email) return "Nicht authentifiziert.";
+
+  if (user.id === DEMO_USER_ID) return DEMO_LOCKED_MESSAGE;
 
   const supabase = await createSupabaseServerClient();
 
