@@ -1,3 +1,4 @@
+import { DEMO_LOCKED_MESSAGE } from "@/lib/auth/demo";
 import { createLink } from "@/lib/links/link-actions";
 import { validateLink } from "@/lib/links/validate";
 import { useRouter } from "next/navigation";
@@ -42,7 +43,9 @@ export default function CreateLinkModal({
 
     if (error) {
       setErrorStatus(
-        "Fehler beim Erstellen des Links. Bitte versuche es später erneut.",
+        error.message === DEMO_LOCKED_MESSAGE
+          ? DEMO_LOCKED_MESSAGE
+          : "Fehler beim Erstellen des Links. Bitte versuche es später erneut.",
       );
       return;
     }

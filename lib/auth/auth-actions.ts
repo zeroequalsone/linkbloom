@@ -5,9 +5,7 @@ import { createSupabaseServerClient, getCurrentUser } from "../supabase/server";
 import { createClient } from "@supabase/supabase-js";
 import { supabaseAdmin } from "../supabase/admin";
 import { revalidatePath } from "next/cache";
-
-const DEMO_USER_ID = process.env.DEMO_USER_ID;
-const DEMO_LOCKED_MESSAGE = "Das Demo-Konto ist schreibgeschützt.";
+import { DEMO_USER_ID, DEMO_LOCKED_MESSAGE } from "./demo";
 
 export const signUp = async (
   email: string,
