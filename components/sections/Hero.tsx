@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { LuArrowRight } from "react-icons/lu";
 
 export default function Hero() {
@@ -22,10 +23,14 @@ export default function Hero() {
             placeholder="deinname"
             className="border-2 border-none outline-mint-4 rounded-lg px-1 py-2 flex-1"
           />
-          <button className="hover:bg-mint-3 cursor-pointer active:bg-mint-2 flex justify-center gap-2 bg-mint-4 text-white px-5.5 py-2 rounded-lg">
+
+          <Link
+            href={"/register"}
+            className="hover:bg-mint-3 active:bg-mint-2 flex justify-center gap-2 bg-mint-4 text-white px-5.5 py-2 rounded-lg"
+          >
             <span>Bloom erstellen</span>
             <LuArrowRight size={24} />
-          </button>
+          </Link>
         </div>
         <p className="text-cream-4 text-sm">
           Kostenlos starten · Keine Kreditkarte · Jederzeit kündbar
