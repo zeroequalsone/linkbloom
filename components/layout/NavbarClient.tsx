@@ -55,7 +55,7 @@ export default function Navbar({ user }: { user: User | null }) {
                 </>
               ) : (
                 <>
-                  <Button variant={2} title="Einloggen" href="login" />
+                  <Button variant={2} title="Einloggen" href="/login" />
                   <Button variant={1} title="Registrieren" href="/register" />
                 </>
               )}
@@ -125,7 +125,7 @@ export default function Navbar({ user }: { user: User | null }) {
                     <Button
                       variant={2}
                       title="Einloggen"
-                      href="login"
+                      href="/login"
                       onClick={() => setMobileOpen(false)}
                     />
                     <Button
