@@ -7,6 +7,7 @@ import { logOut } from "@/lib/auth/auth-actions";
 import { useRouter } from "next/navigation";
 import { User } from "@supabase/supabase-js";
 import { HiOutlineMenuAlt4, HiOutlineX } from "react-icons/hi";
+import { REGISTRATION_DISABLED } from "@/lib/auth/registration";
 
 export default function Navbar({ user }: { user: User | null }) {
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
@@ -43,8 +44,16 @@ export default function Navbar({ user }: { user: User | null }) {
                 </>
               ) : (
                 <>
-                  <Button variant={2} title="Einloggen" href="/login" />
-                  <Button variant={1} title="Registrieren" href="/register" />
+                  {!REGISTRATION_DISABLED && (
+                    <Button variant={2} title="Einloggen" href="/login" />
+                  )}
+                  <Button
+                    variant={1}
+                    title={
+                      REGISTRATION_DISABLED ? "Demo testen" : "Registrieren"
+                    }
+                    href={REGISTRATION_DISABLED ? "/login" : "/register"}
+                  />
                 </>
               )}
             </div>
@@ -97,16 +106,20 @@ export default function Navbar({ user }: { user: User | null }) {
                 </>
               ) : (
                 <>
-                  <Button
-                    variant={2}
-                    title="Einloggen"
-                    href="/login"
-                    onClick={() => setMobileOpen(false)}
-                  />
+                  {!REGISTRATION_DISABLED && (
+                    <Button
+                      variant={2}
+                      title="Einloggen"
+                      href="/login"
+                      onClick={() => setMobileOpen(false)}
+                    />
+                  )}
                   <Button
                     variant={1}
-                    title="Registrieren"
-                    href="/register"
+                    title={
+                      REGISTRATION_DISABLED ? "Demo testen" : "Registrieren"
+                    }
+                    href={REGISTRATION_DISABLED ? "/login" : "/register"}
                     onClick={() => setMobileOpen(false)}
                   />
                 </>

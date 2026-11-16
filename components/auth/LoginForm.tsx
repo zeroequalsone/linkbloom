@@ -5,6 +5,7 @@ import Input from "../ui/Input";
 import { FormEvent, useState } from "react";
 import { signIn } from "@/lib/auth/auth-actions";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { REGISTRATION_DISABLED } from "@/lib/auth/registration";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -111,12 +112,14 @@ export default function LoginForm() {
             <span>Mit Google fortfahren</span>
           </button> */}
 
-          <p className="font-light text-center">
-            Noch kein Konto?{" "}
-            <Link className="text-mint-4 font-medium" href={"/register"}>
-              Registrieren
-            </Link>
-          </p>
+          {!REGISTRATION_DISABLED && (
+            <p className="font-light text-center">
+              Noch kein Konto?{" "}
+              <Link className="text-mint-4 font-medium" href={"/register"}>
+                Registrieren
+              </Link>
+            </p>
+          )}
         </div>
       </div>
 
