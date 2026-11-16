@@ -1,4 +1,5 @@
 import Button from "@/components/ui/Button";
+import { REGISTRATION_DISABLED } from "@/lib/auth/registration";
 import Image from "next/image";
 
 export default function NotFound() {
@@ -23,7 +24,11 @@ export default function NotFound() {
         Die Seite gibt es bei uns nicht — entweder ein Tippfehler, oder hier hat
         noch niemand gepflanzt.
       </p>
-      <Button variant={1} title="Account erstellen" href="/register" />
+      <Button
+        variant={1}
+        title={REGISTRATION_DISABLED ? "Demo testen" : "Account erstellen"}
+        href={REGISTRATION_DISABLED ? "/login" : "/register"}
+      />
       <Button variant={2} title="Zurück zur Startseite" href="/" />
     </div>
   );

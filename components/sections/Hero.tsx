@@ -1,3 +1,4 @@
+import { REGISTRATION_DISABLED } from "@/lib/auth/registration";
 import Link from "next/link";
 import { LuArrowRight } from "react-icons/lu";
 
@@ -25,10 +26,12 @@ export default function Hero() {
           />
 
           <Link
-            href={"/register"}
+            href={REGISTRATION_DISABLED ? "/login" : "/register"}
             className="hover:bg-mint-3 active:bg-mint-2 flex justify-center gap-2 bg-mint-4 text-white px-5.5 py-2 rounded-lg"
           >
-            <span>Bloom erstellen</span>
+            <span>
+              {REGISTRATION_DISABLED ? "Demo testen" : "Bloom erstellen"}
+            </span>
             <LuArrowRight size={24} />
           </Link>
         </div>
