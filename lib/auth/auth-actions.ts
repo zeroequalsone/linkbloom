@@ -6,6 +6,10 @@ import { createClient } from "@supabase/supabase-js";
 import { supabaseAdmin } from "../supabase/admin";
 import { revalidatePath } from "next/cache";
 import { DEMO_USER_ID, DEMO_LOCKED_MESSAGE } from "./demo";
+import {
+  REGISTRATION_DISABLED,
+  REGISTRATION_DISABLED_MESSAGE,
+} from "./registration";
 
 export const signUp = async (
   email: string,
@@ -13,6 +17,8 @@ export const signUp = async (
   displayName: string,
   username: string,
 ) => {
+  if (REGISTRATION_DISABLED) return REGISTRATION_DISABLED_MESSAGE;
+
   const supabase = await createSupabaseServerClient();
 
   const normalizedDisplayName = displayName.trim();
