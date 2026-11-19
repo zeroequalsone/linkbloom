@@ -1,4 +1,5 @@
 import { REGISTRATION_DISABLED } from "@/lib/auth/registration";
+import Image from "next/image";
 import Link from "next/link";
 import { LuArrowRight } from "react-icons/lu";
 
@@ -40,8 +41,16 @@ export default function Hero() {
         </p>
       </div>
       <div>
-        <div className="flex items-center justify-center border-8 rounded-4xl w-2xs h-108">
-          Bild kommt bald...
+        <div className="relative w-2xs h-108 overflow-hidden rounded-4xl border-8">
+          <Image
+            src="/hero-profile.webp"
+            alt="Öffentliches Profil „Linkbloom Demo Account“ mit Avatar und fünf Links"
+            width={949}
+            height={933}
+            sizes="288px"
+            priority
+            className="h-full w-full object-cover"
+          />
         </div>
       </div>
     </div>
